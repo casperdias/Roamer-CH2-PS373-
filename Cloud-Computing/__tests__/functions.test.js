@@ -45,10 +45,10 @@ describe('POST /api/login', () => {
 });
 
 
-describe('GET /api/users', () => {
+describe('GET /api/', () => {
   it('responds with json', async () => {
     const response = await request(app)
-      .get('/api/users')
+      .get('/api/')
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(200);

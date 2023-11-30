@@ -4,7 +4,7 @@ const router = express.Router();
 const functions = require('./functions');
 const authenticateToken = require('./authMiddleware');
 
-router.get('/users', authenticateToken, functions.getAllUsers);
+router.get('/', authenticateToken, functions.getAllUsers);
 router.post('/signup', functions.signup);
 router.post('/login', functions.login);
 

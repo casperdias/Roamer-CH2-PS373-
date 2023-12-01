@@ -19,17 +19,16 @@ connection.connect(err => {
     }
 });
 
-function getAllUsers(req, res) {
-    connection.query('SELECT * FROM users', (err, results) => {
-        if (err) {
-            console.error('Error executing MySQL query:', err);
-            res.status(500).json({
-                error: 'Internal Server Error'
-            });
-        } else {
-            res.json(results);
-        }
-    });
+async function home(req, res) {
+    if (req.user) {
+        return res.status(200).json({
+            message: 'Authorized'
+        });
+    } else {
+        return res.status(401).json({
+            message: 'Unauthorized'
+        });
+    }
 }
 
 async function signup(req, res) {
@@ -118,7 +117,8 @@ async function login(req, res) {
                 });
             }
 
-            const token = jwt.sign({id: results[0].id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+            const token = jwt.sign({id: results[0].id}, process.env.ACCESS_TOKEN_SECRET);
+            res.cookie('token', token, { httpOnly: true });
 
             res.json({
                 message: 'Login successful',
@@ -133,10 +133,20 @@ async function login(req, res) {
     }
 }
 
+function logout(req, res) {
+    // Clear the token cookie
+    res.clearCookie('token');
+
+    res.json({
+        message: 'Logout successful'
+    });
+}
+
 module.exports = {
-    getAllUsers,
+    home,
     signup,
-    login
+    login,
+    logout
 };
 
 module.exports.connection = connection;

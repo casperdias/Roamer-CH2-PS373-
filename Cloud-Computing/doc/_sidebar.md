@@ -1,0 +1,2 @@
+* [Home](/)
+* [Routes](routes.md)

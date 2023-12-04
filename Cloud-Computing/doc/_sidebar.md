@@ -1,2 +1,2 @@
 * [Home](/)
-* [Routes](routes.md)
+* [User Information](routes.md)

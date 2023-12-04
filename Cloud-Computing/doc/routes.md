@@ -1,84 +1,96 @@
-# API Routes untuk user auth
+# API Routes
 
-This document describes the API routes used in the project.
+>API untuk kebutuhan mengenai user seperti Login, Signup, dan Logout
 
-# LINK
-domain/api/
+## HOME
 
-## `GET /`
-This route checks if the user is authenticated.
+Redirect to the home if authenticate, if not redirect to login
 
-**Input**
-None
+**URL**
+
+?>`/api/`
+
+**Authentication:**
+This route requires JWT authentication.
 
 **Response**
-If the user is authenticated:
-
 ```json
 {
     "message": "Authorized"
 }
 ```
 
-If the user is not authenticated:
+--
 
-```json
-{
-    "message": "Unauthorized"
-}
-```
+## SIGNUP
 
-## `POST /signup`
-This route registers a new user.
+Create a new user.
 
-**Input**
-```json
-{
-    "name": "string",
-    "email": "string",
-    "password": "string"
-}
-```
+**URL**
+
+?>`/api/signup`
+
+**METHOD**
+
+?>POST
+
+**Body Parameters:**
+
+- `name`: String, required
+- `email`: String, required
+- `password`: String, required
 
 **Response**
-If the registration is successful:
-
 ```json
 {
     "message": "User registered successfully"
 }
 ```
 
-## `POST /login`
-This route logs in a user.
+---
 
-### Input
-```json
-{
-    "email": "string",
-    "password": "string"
-}
-```
+## LOGIN
 
-### Respone
-If the login is successful:
+Authenticate a user.
 
+**URL**
+
+?>`/api/login`
+
+**METHOD**
+
+?>POST
+
+**Body Parameters:**
+
+- `username`: String, required
+- `password`: String, required
+
+**Response**
 ```json
 {
     "message": "Login successful",
     "token": "string"
 }
 ```
+---
 
-## `GET /logout`
-This route logs out a user.
+## LOGOUT
 
-### Input
-None
+Logout a user.
 
-### Response
+**URL**
+
+?>`/api/logout`
+
+**METHOD**
+
+?>GET
+
+**Response**
 ```json
 {
     "message": "Logout successful"
 }
 ```
+---

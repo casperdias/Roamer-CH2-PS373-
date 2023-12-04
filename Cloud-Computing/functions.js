@@ -103,7 +103,7 @@ async function login(req, res) {
                 });
             }
 
-            const token = jwt.sign({id: results[0].id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+            const token = jwt.sign({id: results[0].id}, process.env.ACCESS_TOKEN_SECRET);
 
             res.json({
                 message: 'Login successful',
@@ -118,10 +118,26 @@ async function login(req, res) {
     }
 }
 
+function logout(req, res) {
+
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (token) {
+        blacklistedTokens.push(token);
+    }
+
+    res.json({
+        message: 'Logout successful'
+    });
+}
+
 module.exports = {
-    getAllUsers,
+    home,
     signup,
-    login
+    login,
+    logout,
+    blacklistedTokens,
 };
 
 module.exports.connection = connection;

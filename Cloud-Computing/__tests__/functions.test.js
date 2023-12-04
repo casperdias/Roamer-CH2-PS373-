@@ -47,11 +47,22 @@ describe('POST /api/login', () => {
   });
 });
 
-
-describe('GET /api/', () => {
+describe('GET /api', () => {
   it('responds with json', async () => {
     const response = await request(app)
-      .get('/api/')
+      .get('/api')
+      .set('Authorization', `Bearer ${token}`)
+      .expect('Content-Type', /json/)
+      .expect(200);
+
+    // Add more assertions as needed
+  });
+});
+
+describe('GET /api/logout', () => {
+  it('responds with json', async () => {
+    const response = await request(app)
+      .get('/api/logout')
       .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(200);

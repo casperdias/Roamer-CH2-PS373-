@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const { blacklistedTokens } = require('./functions');
+const {blacklistedTokens} = require('./functions');
 
-function authenticateToken(req, res, next) {
+function JWTToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
@@ -15,4 +15,7 @@ function authenticateToken(req, res, next) {
   });
 }
 
-module.exports = authenticateToken;
+module.exports = 
+{
+  JWTToken
+};

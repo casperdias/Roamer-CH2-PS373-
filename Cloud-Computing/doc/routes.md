@@ -8,10 +8,10 @@ domain/api/
 ## `GET /`
 This route checks if the user is authenticated.
 
-### Input
+**Input**
 None
 
-### Response
+**Response**
 If the user is authenticated:
 
 ```json
@@ -31,7 +31,7 @@ If the user is not authenticated:
 ## `POST /signup`
 This route registers a new user.
 
-### Input
+**Input**
 ```json
 {
     "name": "string",
@@ -40,7 +40,7 @@ This route registers a new user.
 }
 ```
 
-### Response
+**Response**
 If the registration is successful:
 
 ```json

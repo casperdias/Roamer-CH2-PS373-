@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+let blacklistedTokens = [];
+
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -118,7 +120,6 @@ async function login(req, res) {
             }
 
             const token = jwt.sign({id: results[0].id}, process.env.ACCESS_TOKEN_SECRET);
-            res.cookie('token', token, { httpOnly: true });
 
             res.json({
                 message: 'Login successful',
@@ -134,8 +135,13 @@ async function login(req, res) {
 }
 
 function logout(req, res) {
-    // Clear the token cookie
-    res.clearCookie('token');
+
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (token) {
+        blacklistedTokens.push(token);
+    }
 
     res.json({
         message: 'Logout successful'
@@ -146,7 +152,8 @@ module.exports = {
     home,
     signup,
     login,
-    logout
+    logout,
+    blacklistedTokens,
 };
 
 module.exports.connection = connection;

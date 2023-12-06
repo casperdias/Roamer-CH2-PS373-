@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {blacklistedTokens} = require('./functions');
+const {blacklistedTokens} = require('../func/user');
 
 function JWTToken(req, res, next) {
   const authHeader = req.headers['authorization'];

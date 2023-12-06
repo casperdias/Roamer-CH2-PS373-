@@ -8,7 +8,7 @@ Redirect to the home if authenticate, if not redirect to login
 
 **URL**
 
-?>`/api/`
+?>`/user/`
 
 **Authentication:**
 This route requires JWT authentication.
@@ -28,7 +28,7 @@ Create a new user.
 
 **URL**
 
-?>`/api/signup`
+?>`/user/signup`
 
 **METHOD**
 
@@ -55,7 +55,7 @@ Authenticate a user.
 
 **URL**
 
-?>`/api/login`
+?>`/user/login`
 
 **METHOD**
 
@@ -81,7 +81,7 @@ Logout a user.
 
 **URL**
 
-?>`/api/logout`
+?>`/user/logout`
 
 **METHOD**
 

@@ -1,14 +1,6 @@
-// routes.js
 const express = require('express');
 const router = express.Router();
-const functions = require('./functions');
-const authenticateToken = require('./authMiddleware');
-const { createLog, getLogs, getLog, updateLog, deleteLog } = require('./logbook');
-
-router.get('/', authenticate.JWTToken, functions.home);
-router.post('/signup', functions.signup);
-router.post('/login', functions.login);
-router.get('/logout', authenticate.JWTToken, functions.logout);
+const { createLog, getLogs, getLog, updateLog, deleteLog } = require('../func/logbook');
 
 router.post('/log', async (req, res) => {
     try {

@@ -1,10 +1,12 @@
 // functions.js
-const connection = require('./db'); 
+const connection = require('../conn/db'); 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-function getAllUsers(req, res) {
+let blacklistedTokens = [];
+
+function home(req, res) {
     connection.query('SELECT * FROM users', (err, results) => {
         if (err) {
             console.error('Error executing MySQL query:', err);
@@ -107,7 +109,9 @@ async function login(req, res) {
 
             res.json({
                 message: 'Login successful',
-                token // Send the token in the response
+                token, // Send the token in the response
+                username: results[0].username, // Send the username in the response
+                email: results[0].email // Send the email in the response
             });
         });
     } catch (error) {

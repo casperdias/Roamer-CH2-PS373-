@@ -1,8 +1,8 @@
 // Create a new log
-const connection = require('./db'); 
+const connection = require('../conn/db'); 
 async function createLog(log) {
     return new Promise((resolve, reject) => {
-        connection.query('INSERT INTO logbook (place_id, visited_time, text, user_id, created_at) VALUES (?, ?, ?, ?, ?)', [log.place_id, log.visited_time, log.text, log.user_id, log.created_at], (err, results) => {
+        connection.query('INSERT INTO logbook (place_id, visited_time, text, user_id) VALUES (?, ?, ?, ?)', [log.place_id, log.visited_time, log.text, log.user_id], (err, results) => {
             if (err) {
                 console.error('Error executing MySQL query:', err);
                 reject(err);

@@ -1,147 +1,94 @@
-// functions.js
-const connection = require('../conn/db'); 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const connection = require('../conn/db');
 require('dotenv').config();
+const app = require('../conn/firebase');
+const {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+} = require("firebase/auth");
+const auth = getAuth(app);
 
-let blacklistedTokens = [];
-
-function home(req, res) {
-    connection.query('SELECT * FROM users', (err, results) => {
-        if (err) {
-            console.error('Error executing MySQL query:', err);
-            res.status(500).json({
-                error: 'Internal Server Error'
-            });
-        } else {
-            res.json(results);
-        }
-    });
-}
-
-async function signup(req, res) {
+const signup = async (req, res) => {
     const {
         name,
         email,
         password
     } = req.body;
 
-    if (!name || !email || !password) {
-        return res.status(400).json({
-            error: 'Please provide all required fields'
-        });
-    }
-
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        connection.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+        const user = await createUserWithEmailAndPassword(auth, email, password);
+        connection.query('INSERT INTO users (username, uid) VALUES (?, ?)', [name, user.user.uid], (err, results) => {
             if (err) {
                 console.error('Error executing MySQL query:', err);
                 return res.status(500).json({
                     error: 'Internal Server Error'
                 });
             }
-
-            if (results.length > 0) {
-                return res.status(400).json({
-                    error: 'Email already registered'
-                });
-            }
-
-            connection.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [name, email, hashedPassword], (err, results) => {
-                if (err) {
-                    console.error('Error executing MySQL query:', err);
-                    return res.status(500).json({
-                        error: 'Internal Server Error'
-                    });
-                }
-
-                res.status(201).json({
-                    message: 'User registered successfully'
-                });
-            });
+        });
+        res.status(201).json({
+            id: user.user.uid,
+            email: email,
+            message: 'User registered successfully'
         });
     } catch (error) {
-        console.error('Error hashing password:', error);
-        res.status(500).json({
-            error: 'Internal Server Error'
+        res.status(400).json({
+            error: error.message
         });
     }
-}
+};
 
-async function login(req, res) {
+const login = async (req, res) => {
     const {
         email,
         password
     } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({
-            error: 'Please provide all required fields'
-        });
-    }
-
     try {
-        connection.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
-            if (err) {
-                console.error('Error executing MySQL query:', err);
-                return res.status(500).json({
-                    error: 'Internal Server Error'
-                });
-            }
-
-            if (results.length === 0) {
-                return res.status(401).json({
-                    error: 'Invalid email or password'
-                });
-            }
-
-            const isPasswordValid = await bcrypt.compare(password, results[0].password);
-
-            if (!isPasswordValid) {
-                return res.status(401).json({
-                    error: 'Invalid email or password'
-                });
-            }
-
-            const token = jwt.sign({id: results[0].id}, process.env.ACCESS_TOKEN_SECRET);
-
-            res.json({
-                message: 'Login successful',
-                token, // Send the token in the response
-                username: results[0].username, // Send the username in the response
-                email: results[0].email // Send the email in the response
-            });
+        const user = await signInWithEmailAndPassword(auth, email, password);
+        res.status(200).json({
+            message: 'Login success',
+            id: user.user.uid,
+            email: email
         });
     } catch (error) {
-        console.error('Error comparing passwords:', error);
-        res.status(500).json({
-            error: 'Internal Server Error'
+        res.status(400).json({
+            error: error.message
+        });
+    }
+};
+
+const getUser = async (req, res) => {
+    try {
+        const user = await auth.currentUser;
+        res.status(200).json({
+            id: user.uid,
+            email: user.email,
+            message: 'Authorized'
+        });
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
         });
     }
 }
 
-function logout(req, res) {
-
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (token) {
-        blacklistedTokens.push(token);
+const logout = async (req, res) => {
+    try {
+        await signOut(auth);
+        res.status(200).json({
+            message: 'Logout success'
+        });
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
     }
-
-    res.json({
-        message: 'Logout successful'
-    });
-}
-
-module.exports = {
-    home,
-    signup,
-    login,
-    logout,
-    blacklistedTokens,
 };
 
-module.exports.connection = connection;
+module.exports = {
+    signup,
+    login,
+    getUser,
+    logout
+};

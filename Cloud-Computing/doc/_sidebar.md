@@ -1,2 +1,3 @@
 * [Home](/)
-* [User Information](routes.md)
+* [User Information](user_info.md)
+* [Logbook](log.md)

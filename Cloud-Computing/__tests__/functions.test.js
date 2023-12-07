@@ -66,7 +66,6 @@ describe('GET /user/logout', () => {
   it('responds with json', async () => {
     const response = await request(app)
       .get('/user/logout')
-      .set('Authorization', `Bearer ${token}`)
       .expect('Content-Type', /json/)
       .expect(200);
 

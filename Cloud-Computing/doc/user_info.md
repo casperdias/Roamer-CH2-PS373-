@@ -11,11 +11,13 @@ Redirect to the home if authenticate, if not redirect to login
 ?>`/user/`
 
 **Authentication:**
-This route requires JWT authentication.
+This route requires Firebase authentication.
 
 **Response**
 ```json
 {
+    "id": "string",
+    "email": "string",
     "message": "Authorized"
 }
 ```
@@ -34,7 +36,7 @@ Create a new user.
 
 ?>POST
 
-**Body Parameters:**
+**Body Parameters (JSON):**
 
 - `name`: String, required
 - `email`: String, required
@@ -43,6 +45,8 @@ Create a new user.
 **Response**
 ```json
 {
+    "id": "string",
+    "email": "string",
     "message": "User registered successfully"
 }
 ```
@@ -61,7 +65,7 @@ Authenticate a user.
 
 ?>POST
 
-**Body Parameters:**
+**Body Parameters (JSON):**
 
 - `username`: String, required
 - `password`: String, required
@@ -70,7 +74,8 @@ Authenticate a user.
 ```json
 {
     "message": "Login successful",
-    "token": "string"
+    "id": "string",
+    "email": "string"
 }
 ```
 ---

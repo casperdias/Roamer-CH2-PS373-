@@ -1,8 +1,8 @@
-# API Routes
+# API User
 
 >API untuk kebutuhan mengenai user seperti Login, Signup, dan Logout
 
-## HOME
+## GetUser
 
 Redirect to the home if authenticate, if not redirect to login
 

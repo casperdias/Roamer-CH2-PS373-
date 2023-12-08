@@ -20,6 +20,7 @@ router.get('/logs', async (req, res) => {
         res.status(500).send(error.message);
     }
 });
+
 router.get('/log/:log_id', async(req, res) => {
     try {
         const log = await getLog(req.params.log_id);

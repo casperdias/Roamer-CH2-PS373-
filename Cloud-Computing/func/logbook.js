@@ -1,5 +1,6 @@
-// Create a new log
 const connection = require('../conn/db'); 
+
+// Create a new log
 async function createLog(log) {
     return new Promise((resolve, reject) => {
         connection.query('INSERT INTO logbook (place_id, visited_time, text, user_id) VALUES (?, ?, ?, ?)', [log.place_id, log.visited_time, log.text, log.user_id], (err, results) => {

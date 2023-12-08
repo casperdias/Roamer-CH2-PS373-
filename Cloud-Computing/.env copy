@@ -4,4 +4,4 @@ DB_USER='root'
 DB_PASSWORD=''
 DB_NAME='bangkit_roamer'
 PORT=3000
-HOST=localhost
+HOST=

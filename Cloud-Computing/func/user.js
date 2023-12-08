@@ -1,5 +1,4 @@
 const connection = require('../conn/db');
-require('dotenv').config();
 const app = require('../conn/firebase');
 const {
     getAuth,

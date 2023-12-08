@@ -134,7 +134,7 @@ Retrieve All LOG.
 **Response**
 ```json
 {
-   
+  ["all LOG"]
 }
 ```
 ---
@@ -154,7 +154,7 @@ Retrieve One LOG.
 **Response**
 ```json
 {
-     "log_id":"log_id","place_id":"place_id","visited_time":"time","text":"text","user_id":"user_id","created_at":"time"
+    "log_id":"log_id","place_id":"place_id","visited_time":"time","text":"text","user_id":"user_id","created_at":"time"
 }
 ```
 ---

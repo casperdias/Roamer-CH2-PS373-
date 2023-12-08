@@ -97,6 +97,7 @@ describe('Logbook routes', () => {
       console.log(log_id);
       const updatedLog = { place_id: 1, visited_time: new Date(), text: 'Updated log', user_id: 16, created_at: new Date() };
       const response = await request(app).put(`/activity/log/${log_id}`).send(updatedLog);
+      // console.log(response.body)
       expect(response.statusCode).toBe(200);
     });
   

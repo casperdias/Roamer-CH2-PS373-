@@ -5,7 +5,7 @@ const { createLog, getLogs, getLog, updateLog, deleteLog } = require('../func/lo
 router.post('/log', async (req, res) => {
     try {
        const log =  await createLog(req.body);
-        res.status(201).send(log);
+        res.status(201).json({message:"Log Created"});
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -35,7 +35,7 @@ router.put('/log/:log_id',async (req, res) => {
     
     try {
         await updateLog(req.params.log_id, req.body);
-        res.status(200).send('Log Updated');
+        res.status(200).json({message:'Log Updated'});
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -44,7 +44,7 @@ router.put('/log/:log_id',async (req, res) => {
 router.delete('/log/:log_id', async (req, res) => {
     try {
         await deleteLog(req.params.log_id);
-        res.status(200).send('Log Deleted');
+        res.status(200).json({message:'Log Deleted'});
     } catch (error) {
         res.status(500).send(error.message);
     }

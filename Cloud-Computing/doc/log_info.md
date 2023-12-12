@@ -64,7 +64,7 @@ Retrieve One LOG.
 **Response**
 ```json
 {
-    "log_id": integer ,"place_id": integer ,"visited_time":date,"text":string,"user_id":int,"created_at":datetime
+    "log_id": "int" ,"place_id": "int" ,"visited_time":"date","text":"string","user_id":"int","created_at":"datetime"
 }
 ```
 ---

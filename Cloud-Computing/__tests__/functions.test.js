@@ -22,7 +22,7 @@ describe('POST /user/signup', () => {
     const response = await request(app)
       .post('/user/signup')
       .send({
-        name: 'testa',
+        name: 'testaa',
         email: randomEmail,
         password: randomPassword
       })
@@ -75,35 +75,39 @@ describe('GET /user/logout', () => {
 
 describe('Logbook routes', () => {
     test('createLog', async () => {
-      const log = { place_id: 1, visited_time: new Date(), text: 'Test log', user_id: 16 };
+      const log = { place_id: 1, visited_time: new Date(), text: 'Test log', user_id: 1 };
       const response = await request(app).post('/activity/log/').send(log);
-      newID = response.body.insertId;
+      // newID =  response.body.insertId;
+      console.log(response.body);
       expect(response.statusCode).toBe(201);
     });
   
     test('getLogs', async () => {
       const response = await request(app).get('/activity/logs');
+      console.log(response.body);
       expect(response.statusCode).toBe(200);
     });
   
     test('getLog', async () => {
-      const log_id = newID; // replace with an existing log ID
+      const log_id = 4; // replace with an existing log ID
       const response = await request(app).get(`/activity/log/${log_id}`);
+      console.log(response.body);
       expect(response.statusCode).toBe(200);
     });
   
     test('updateLog', async () => {
-      const log_id = newID; // replace with an existing log ID
-      console.log(log_id);
-      const updatedLog = { place_id: 1, visited_time: new Date(), text: 'Updated log', user_id: 16, created_at: new Date() };
+      const log_id = 4; // replace with an existing log ID
+      date = new Date();
+      const updatedLog = { place_id: 1, visited_time: date , text: 'Updated log', user_id: 1 };
       const response = await request(app).put(`/activity/log/${log_id}`).send(updatedLog);
-      // console.log(response.body)
+      console.log(response.body)
       expect(response.statusCode).toBe(200);
     });
   
     test('deleteLog', async () => {
-      const log_id = newID; // replace with an existing log ID
+      const log_id = 6; // replace with an existing log ID
       const response = await request(app).delete(`/activity/log/${log_id}`);
+      console.log(response.body);
       expect(response.statusCode).toBe(200);
     });
   });

@@ -45,8 +45,8 @@ async function getLog(log_id) {
 // Update a specific log
 async function updateLog(log_id, updatedLog) {
     try {
-        const query = 'UPDATE logbook SET place_id = ?, visited_time = ?, text = ?, user_id = ?, created_at = ? WHERE log_id = ?';
-        await connection.query(query, [updatedLog.place_id, updatedLog.visited_time, updatedLog.text, updatedLog.user_id, updatedLog.created_at, log_id]);
+        const query = 'UPDATE logbook SET place_id = ?, visited_time = ?, text = ?, user_id = ? WHERE log_id = ?';
+        await connection.query(query, [updatedLog.place_id, updatedLog.visited_time, updatedLog.text, updatedLog.user_id, log_id]);
     } catch (error) {
         console.error('Error updating log:', error);
         throw error;

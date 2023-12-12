@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2023 at 07:28 AM
+-- Generation Time: Dec 08, 2023 at 04:29 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `logbook` (
   `log_id` int(11) NOT NULL,
   `place_id` int(11) NOT NULL,
-  `visited_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `visited_time` date NOT NULL DEFAULT current_timestamp(),
   `text` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
@@ -64,8 +64,17 @@ CREATE TABLE `place` (
   `city` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `price_range` varchar(255) NOT NULL,
-  `rating` float NOT NULL
+  `rating` float NOT NULL,
+  `img_link` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `place`
+--
+
+INSERT INTO `place` (`id`, `name`, `city`, `description`, `price_range`, `rating`, `img_link`) VALUES
+(1, 'Coba-coab', 'SOLO', 'coba', '25000', 2.5, 'pornhub.com'),
+(2, 'asdasf', 'JAKARTA', 'asdasd', '10000', 3.5, 'youporn.com');
 
 -- --------------------------------------------------------
 
@@ -76,9 +85,7 @@ CREATE TABLE `place` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `reset_pin` int(11) NOT NULL,
+  `uid` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -133,13 +140,13 @@ ALTER TABLE `params`
 -- AUTO_INCREMENT for table `place`
 --
 ALTER TABLE `place`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables

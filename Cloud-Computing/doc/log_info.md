@@ -14,6 +14,13 @@ Create Log.
 
 ?>POST
 
+**Body Parameters (JSON):**
+
+- `place_id`: int, required
+- `visited_time`: Date, required
+- `text`: String, required
+- `user_id`: int, required
+
 **Response**
 ```json
 {
@@ -57,7 +64,7 @@ Retrieve One LOG.
 **Response**
 ```json
 {
-    "log_id":"log_id","place_id":"place_id","visited_time":"time","text":"text","user_id":"user_id","created_at":"time"
+    "log_id": integer ,"place_id": integer ,"visited_time":date,"text":string,"user_id":int,"created_at":datetime
 }
 ```
 ---
@@ -73,6 +80,14 @@ Update Log.
 **METHOD**
 
 ?>PUT
+
+**Body Parameters (JSON):**
+
+- `place_id`: int, required
+- `visited_time`: Date, required
+- `text`: String, required
+- `user_id`: int, required
+
 
 **Response**
 ```json

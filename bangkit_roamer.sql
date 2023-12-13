@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2023 at 04:29 PM
+-- Generation Time: Dec 13, 2023 at 01:31 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -33,7 +33,8 @@ CREATE TABLE `logbook` (
   `visited_time` date NOT NULL DEFAULT current_timestamp(),
   `text` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -67,14 +68,6 @@ CREATE TABLE `place` (
   `rating` float NOT NULL,
   `img_link` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `place`
---
-
-INSERT INTO `place` (`id`, `name`, `city`, `description`, `price_range`, `rating`, `img_link`) VALUES
-(1, 'Coba-coab', 'SOLO', 'coba', '25000', 2.5, 'pornhub.com'),
-(2, 'asdasf', 'JAKARTA', 'asdasd', '10000', 3.5, 'youporn.com');
 
 -- --------------------------------------------------------
 
@@ -128,7 +121,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `logbook`
 --
 ALTER TABLE `logbook`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `params`
@@ -140,13 +133,13 @@ ALTER TABLE `params`
 -- AUTO_INCREMENT for table `place`
 --
 ALTER TABLE `place`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Constraints for dumped tables

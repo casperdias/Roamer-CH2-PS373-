@@ -10,7 +10,7 @@ const {
 
 // Instantiate a storage client with credentials
 const storage = new Storage({
-    keyFilename: "service_account/dev-roamer-ae2e4f275834.json"
+    keyFilename: process.env.GCLOUD_SERVICE_KEY
 });
 const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 

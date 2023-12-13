@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `logbook` (
   `log_id` int(11) NOT NULL,
   `place_id` int(11) NOT NULL,
-  `visited_time` date NOT NULL DEFAULT current_timestamp(),
+  `visited_time` date NOT NULL,
   `text` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),

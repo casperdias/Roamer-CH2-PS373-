@@ -120,6 +120,7 @@ const logout = async (req, res) => {
 const preference = async (req, res) => {
     try {
         const user = await auth.currentUser;
+
         const names = req.body.preference.split(',').map(preference => preference.trim());
         let preference_array = [];
 
@@ -188,7 +189,6 @@ const preference = async (req, res) => {
         }
         getPlaceId(preference_array)
             .then(place_id => {
-                console.log(place_id);
                 const ids = place_id.split(',').map(id => id.trim());
                 const query = 'SELECT * FROM place WHERE id IN (?)';
                 connection.query(query, [ids], (err, results) => {
@@ -216,10 +216,96 @@ const preference = async (req, res) => {
     }
 }
 
+//Home Page, get user_id and query to table preference and get the place_id
+const getPreference = async (req, res) => {
+    try {
+        const user = await auth.currentUser;
+        connection.query('SELECT * FROM preference WHERE user_id = ?', [user.uid], (err, results) => {
+            if (err) {
+                console.error('Error executing MySQL query:', err);
+                return res.status(500).json({
+                    error: 'Internal Server Error'
+                });
+            }
+            if (results.length === 0) {
+                return res.status(404).json({
+                    error: 'Preference not found'
+                });
+            }
+            let preference_array = [];
+            for (let i = 0; i < results.length; i++) {
+                preference_array.push(results[i].preference);
+            }
+            //POST preference array using JSON input
+            function getPlaceId(preference_array) {
+                return new Promise((resolve, reject) => {
+                    const options = {
+                        url: 'https://model-roamer-qgrxwby45q-et.a.run.app/preferences',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            Place_Id: preference_array
+                        })
+                    };
+
+                    //send request to ML model
+                    request(options, function (err, response, body) {
+                        if (err) {
+                            console.error('Error executing ML model:', err);
+                            reject('Internal Server Error');
+                        }
+                        let result = JSON.parse(response.body).recommendations;
+                        let place_id = '';
+                        //Loop through the result and insert into place id with , as delimiter
+                        for (let i = 0; i < result.length; i++) {
+                            place_id += result[i].Place_Id.toString();
+                            if (i < result.length - 1) {
+                                place_id += ', ';
+                            }
+                        }
+                        resolve(place_id);
+                    });
+                });
+            }
+            getPlaceId(preference_array)
+                .then(place_id => {
+                    const ids = place_id.split(',').map(id => id.trim());
+                    const query = 'SELECT * FROM place WHERE id IN (?)';
+                    connection.query(query, [ids], (err, results) => {
+                        if (err) {
+                            console.error('Error executing MySQL query:', err);
+                            res.status(500).json({
+                                error: 'Internal Server Error'
+                            });
+                        } else if (results.length === 0) {
+                            res.status(404).json({
+                                error: 'Place not found'
+                            });
+                        } else {
+                            res.json(results);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
+    }
+}
+
+
+
 module.exports = {
     signup,
     login,
     getUser,
     logout,
-    preference
+    preference,
+    getPreference
 }

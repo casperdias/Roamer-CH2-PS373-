@@ -1,4 +1,5 @@
 const connection = require('../conn/db');
+const app = require('../conn/firebase');
 const processFile = require("../middleware/storage");
 require("dotenv").config();
 const {
@@ -7,7 +8,12 @@ const {
 const {
     Storage
 } = require("@google-cloud/storage");
+const {
+    getAuth
+} = require("firebase/auth");
 
+
+const auth = getAuth(app);
 // Instantiate a storage client with credentials
 const storage = new Storage({
     keyFilename: process.env.GCLOUD_SERVICE_KEY
@@ -47,14 +53,13 @@ const upload = async (req, res) => {
             const {
                 name,
                 city,
+                category,
                 description,
-                price_range,
-                rating,
                 imageUrl
             } = req.body;
 
-            const query = 'INSERT INTO place (name, city, description, price_range, rating, img_link) VALUES (?, ?, ?, ?, ?, ?)';
-            connection.query(query, [name, city, description, price_range, rating, imageUrl], (err, results) => {
+            const query = 'INSERT INTO place (name, city, category, description, img_link) VALUES (?, ?, ?, ?, ?)';
+            connection.query(query, [name, city, category, description, imageUrl], (err, results) => {
                 if (err) {
                     console.error('Error executing MySQL query:', err);
                     return res.status(500).json({
@@ -112,8 +117,69 @@ function getPlace(req, res) {
     });
 }
 
+// Get a number of places based on body input {name: name1, name2, etc} parsing each name and query and return as JSON
+function filterPlace(req, res) {
+    const ids = req.body.place_id.split(',').map(id => id.trim());
+    const query = 'SELECT * FROM place WHERE id IN (?)';
+    connection.query(query, [ids], (err, results) => {
+        if (err) {
+            console.error('Error executing MySQL query:', err);
+            res.status(500).json({
+                error: 'Internal Server Error'
+            });
+        } else if (results.length === 0) {
+            res.status(404).json({
+                error: 'Place not found'
+            });
+        } else {
+            res.json(results);
+        }
+    });
+}
+
+const likeplace = async (req, res) => {
+    // Take input JSON body place_name and insert into likeplace table
+    try {
+        const user = await auth.currentUser;
+        const place_name = req.body.place_name;
+        //Query place name in table place and get the id
+        connection.query('SELECT * FROM place WHERE name = ?', [place_name], (err, results) => {
+            if (err) {
+                console.error('Error executing MySQL query:', err);
+                return res.status(500).json({
+                    error: 'Internal Server Error'
+                });
+            }
+            if (results.length === 0) {
+                return res.status(404).json({
+                    error: 'Place not found'
+                });
+            }
+            //Insert into likeplace table and also insert column status with true
+            connection.query('INSERT INTO like_place (user_id, place_id, status_like) VALUES (?, ?, ?)', [user.uid, results[0].id, true], (err, results) => {
+                if (err) {
+                    console.error('Error executing MySQL query:', err);
+                    return res.status(500).json({
+                        error: 'Internal Server Error'
+                    });
+                }
+            });
+            res.status(200).json({
+                message: 'Thank you for your like'
+            });
+        });
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
+    }
+}
+
+
 module.exports = {
     getallPlaces,
     getPlace,
-    upload
+    upload,
+    filterPlace,
+    likeplace
 };

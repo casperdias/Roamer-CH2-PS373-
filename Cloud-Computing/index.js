@@ -16,6 +16,6 @@ app.use('/user', routes_user);
 app.use('/activity', routes_log);
 app.use('/places', routes_places);
 
-app.listen(port, host, () => {
+app.listen(port, () => {
   console.log(`Server is running on http://${host}:${port}`);
 });

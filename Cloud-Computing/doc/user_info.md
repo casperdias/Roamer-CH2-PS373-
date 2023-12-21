@@ -18,11 +18,12 @@ This route requires Firebase authentication.
 {
     "id": "string",
     "email": "string",
-    "message": "Authorized"
+    "message": "Authorized",
+    "name":"string"
 }
 ```
 
---
+---
 
 ## SIGNUP
 
@@ -67,7 +68,7 @@ Authenticate a user.
 
 **Body Parameters (JSON):**
 
-- `username`: String, required
+- `email`: String, required
 - `password`: String, required
 
 **Response**
@@ -75,8 +76,54 @@ Authenticate a user.
 {
     "message": "Login successful",
     "id": "string",
-    "email": "string"
+    "email": "string",
+    "name":"string"
 }
+```
+---
+
+## Upload Preference
+
+Upload user place preference
+
+**URL**
+
+?>`/user/preference`
+
+**Authentication:**
+This route requires Firebase authentication.
+
+**METHOD**
+
+?>POST
+
+**Body Parameters (JSON):**
+
+- `preference`: string_1, string_2, etc 
+
+**Response**
+```json
+[
+  {
+    "id": int,
+    "name": String,
+    "city": String,
+    "category": String,
+    "description":String,
+    "img_link": String
+  },
+  {
+    "id": int,
+    "name": String,
+    "city": String,
+    "category": String,
+    "description":String,
+    "img_link": String
+  },
+  {
+    .......
+  }
+]
 ```
 ---
 

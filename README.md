@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/casperdias/Roamer-CH2-PS373-/blob/main/Untitled-3.png">
+  <img src="https://github.com/casperdias/Roamer-CH2-PS373-/blob/main/Logo.png">
 </p>
 
 # Roamer: Your Adventure Guide

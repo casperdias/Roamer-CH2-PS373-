@@ -1,34 +1,32 @@
 # Roamer: Your Adventure Guide
 
-Welcome to the Roamer repository, your go-to adventure guide! This project is part of the Capstone Program for Bangkit CH2-PS373. Roamer is designed to enhance your travel experience by providing valuable information, recommendations, and guidance for your adventures.
+Welcome to the Roamer repository, your go-to adventure guide! This project is part of the Capstone Program for Bangkit CH2-PS373. Roamer is an innovative mobile application designed to transform the way travelers plan and experience their adventures. Roamer is an application that utilizes reference data for places to be visited by tourists. This data will be used to recommend other tourist destinations.
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features](#features)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [Team Member]
 
 ## Overview
 
-Roamer is an adventure companion that leverages cutting-edge technologies to offer personalized recommendations and insights for your travels. Whether you're a solo explorer or a group of friends seeking new adventures, Roamer has you covered.
+Roamer is an application that utilizes reference data for places to be visited by tourists. This data will be used to recommend other tourist destinations.
 
-## Features
+## Team
+|            Member           |  Student ID |        Path         |
+| :-------------------------: | :---------: | :----------------:  |
+|        Muhammad Talim       | M299BSY1039 |  Machine Learning   |
+|      Kaleb Nathan Zebua     | M312BSY1266 |  Machine Learning   |
+|    Anindita Nadhifa Putri   | M200BSX1629 |  Machine Learning   |
+|       Ridho Priambodo       | C312BSY3617 |   Cloud Computing   |
+|   Baharuddin Dias Saputra   | C312BSY3678 |   Cloud Computing   |
+|     Nadia Latifa Cintani    | A296BSX2676 |  Mobile Development |
+|    Fajar Rizqy Hariyanto    | A009BSY2792 |  Mobile Development |
 
-- **Personalized Recommendations**: Roamer analyzes your preferences and past activities to suggest tailored recommendations for places to visit, activities to try, and more.
+M299BSY1039 – Muhamad Talim – Universitas Pendidikan Indonesia - Machine Learning - [Active]
+M200BSX1629 – Anindita Nadhifa Putri – Universitas Diponegoro - Machine Learning - [Active]
+M312BSY1266– Kaleb Nathan Zebua – Universitas Sebelas Maret - Machine Learning - [Active]
+C312BSY3617 – Ridho Priambodo – Universitas Sebelas Maret - Cloud Computing - [Active]
+C312BSY3678 – Baharuddin Dias Saputra – Universitas Sebelas Maret - Cloud Computing - [Active]
+A296BSX2676 – Nadia Latifa Cintani – Universitas Pembangunan Nasional Veteran Jawa Timur - Mobile Development - [Active]
+A009BSY2792 - Fajar Rizqy Hariyanto - Universitas Gunadarma - Mobile Development - [Active]
 
-- **Interactive Maps**: Easily navigate through new destinations with Roamer's interactive maps, highlighting points of interest, local attractions, and user-recommended spots.
-
-- **Real-time Updates**: Stay informed with real-time updates on weather conditions, local events, and other relevant information to ensure a seamless travel experience.
-
-- **Collaborative Planning**: Plan your trip collaboratively with friends by sharing itineraries, recommendations, and experiences within the app.
-
-## Getting Started
-
-To get started with Roamer, follow these steps:
-
-1. **Clone the Repository**: 
-   ```bash
-   git clone https://github.com/your-username/Roamer.git

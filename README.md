@@ -1,5 +1,4 @@
 # Roamer-CH2-PS373
-# Roamer-CH2-PS373
 # Mobile Development Journey: From Figma to Kotlin
 
 ## Goal

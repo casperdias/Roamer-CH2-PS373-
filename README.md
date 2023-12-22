@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/casperdias/Roamer-CH2-PS373-/Untitled-3.png">
+</p>
+
 # Roamer: Your Adventure Guide
 
 Welcome to the Roamer repository, your go-to adventure guide! This project is part of the Capstone Program for Bangkit CH2-PS373. 
